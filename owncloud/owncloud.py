@@ -903,15 +903,18 @@ class Client(object):
             tree = ET.fromstring(res.content)
             self._check_ocs_status(tree)
             data_el = tree.find('data')
-            return ShareInfo(
-                                {
-                                    'id': data_el.find('id').text,
-                                    'path': path,
-                                    'url': data_el.find('url').text,
-                                    'token': data_el.find('token').text,
-                                    'name': data_el.find('name').text
-                                }
-            )
+            share_info = {
+                'id': data_el.find('id').text,
+                'path': path,
+                'url': data_el.find('url').text,
+                'token': data_el.find('token').text,
+            }
+
+            name = data_el.find('token')
+            if name is not None:
+                share_info["name"] = name
+
+            return ShareInfo(**share_info)
         raise HTTPResponseError(res)
 
     def is_shared(self, path):
