@@ -914,7 +914,7 @@ class Client(object):
             if name is not None:
                 share_info["name"] = name
 
-            return ShareInfo(**share_info)
+            return ShareInfo(share_info)
         raise HTTPResponseError(res)
 
     def is_shared(self, path):
