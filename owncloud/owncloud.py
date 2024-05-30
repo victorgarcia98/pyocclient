@@ -910,7 +910,7 @@ class Client(object):
                 'token': data_el.find('token').text,
             }
 
-            name = data_el.find('token')
+            name = data_el.find('name')
             if name is not None:
                 share_info["name"] = name
 
